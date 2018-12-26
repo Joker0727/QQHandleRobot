@@ -113,7 +113,7 @@ namespace QQRoboter
         {
 
             //不能发送汉字，只能发送键盘上有的内容 也可以模拟shift+！等 
-            byte[] ch = (System.Text.Encoding.GetEncoding("gb2312") .GetBytes(Input));
+            byte[] ch = (System.Text.Encoding.GetEncoding("gb2312").GetBytes(Input));
             for (int i = 0; i < ch.Length; i++)
             {
 
@@ -225,7 +225,7 @@ namespace QQRoboter
             //用PictureBox显示
 
             //Clipboard.SetImage(bmp);
-            Clipboard.SetText(this.textBox3.Text );
+            Clipboard.SetText(this.textBox3.Text);
             ShowWindow(k, 1);
             SendMessage(k, WM_PASTE, 0, 0);
             SendMessage(k, WM_KEYDOWN, 0X0D, 0);//发
@@ -251,8 +251,8 @@ namespace QQRoboter
             g.Dispose();
             return baseImage;
         }
-      
-    
+
+
         private void button1_Click(object sender, EventArgs e)
         {
             IntPtr k = FindWindow(null, comboBox1.Text);
@@ -263,11 +263,11 @@ namespace QQRoboter
             //得到Bitmap(传入Rectangle.Empty自动计算宽高)
             Bitmap bmp = TextToBitmap(text, this.textBox1.Font, Rectangle.Empty, Brushes.Red, this.textBox1.BackColor);
 
-           
+
             {
                 Clipboard.SetImage(bmp);
             }
-           ShowWindow(k, 1);
+            ShowWindow(k, 1);
             SendMessage(k, WM_PASTE, 0, 0);
             SendMessage(k, WM_KEYDOWN, 0X0D, 0);//发
 
@@ -286,7 +286,7 @@ namespace QQRoboter
             IntPtr k = FindWindow(null, comboBox1.Text);
             // SetForegroundWindow(k);//把找到的的对话框在最前面显示如果使用了这个方法
             Clipboard.Clear();
-          
+
             string text = this.textBox3.Text;
             //用PictureBox显示
             Bitmap bmp = TextToBitmap(text, this.textBox1.Font, Rectangle.Empty, Brushes.Red, this.textBox3.BackColor);
@@ -305,15 +305,15 @@ namespace QQRoboter
         {
             hour++;
             label5.Text = hour.ToString();
-            if (hour >= 60*shijian )
+            if (hour >= 60 * shijian)
             {
                 hour = 0;
                 this.textBox3.Text = "打卡";
                 sends();
-                
+
             }
         }
-        public  void FindUserMessage(IntPtr hwnd)
+        public void FindUserMessage(IntPtr hwnd)
         {
             if (!Win32Native.IsWindow(hwnd))
                 label3.Text = "状态：Error";
@@ -326,9 +326,7 @@ namespace QQRoboter
                     ValuePattern vpTextEdit = element.GetCurrentPattern(ValuePattern.Pattern) as ValuePattern;
                     if (vpTextEdit != null)
                     {
-                         value = vpTextEdit.Current.Value;
-
-                        
+                        value = vpTextEdit.Current.Value;
                     }
                 }
             }
@@ -337,7 +335,7 @@ namespace QQRoboter
         {
             try
             {
-               
+
                 while (1 == 1)
                 {
                     Thread.Sleep(200);
@@ -349,11 +347,17 @@ namespace QQRoboter
                         label3.Text = "状态：正常";
                         foreach (int hWnd in hWndOfSession)
                             FindUserMessage((IntPtr)hWnd);
-                        string[] content = value.Split(' ');
+                        string[] content = value.Split('\r');
+                        List<string> tempList = new List<string>();
+                        foreach (var item in content)
+                        {
+                            if (!string.IsNullOrEmpty(item))
+                                tempList.Add(item);
+                        }
 
-                        ADD(content[content.Count() - 5] + ":" + content[content.Count() - 2], content[content.Count() - 5]);
-                     
-                       
+                        //ADD(content[content.Count() - 5] + ":" + content[content.Count() - 2], content[content.Count() - 5]);
+                        ADD(tempList[tempList.Count() - 2] + ":" + tempList[tempList.Count() - 1], tempList[tempList.Count() - 2]);
+
                     }
                 }
             }
@@ -363,9 +367,9 @@ namespace QQRoboter
                 threadz2.SetApartmentState(ApartmentState.STA);
                 threadz2.IsBackground = true;
                 threadz2.Start();
-               
+
             }
-        
+
         }
         private string Get(string url)
         {
@@ -377,13 +381,13 @@ namespace QQRoboter
             myStream.Close();
             return strHTML;
         }
-        public void ADD(string item,string s)
+        public void ADD(string item, string s)
         {
-           
+
             Regex regex = new Regex(@"(\d+):(\d+):(\d+)");
             s = regex.Replace(s, "").Trim();
             Regex regex1 = new Regex(@"(?<=【).*?(?=】)");
-            s = regex1.Replace(s, "").Trim().Replace ("【","").Replace("】","");
+            s = regex1.Replace(s, "").Trim().Replace("【", "").Replace("】", "");
             if (!this.listBox1.Items.Contains(item))
             {
                 this.listBox1.Items.Add(item);
@@ -391,7 +395,7 @@ namespace QQRoboter
             }
             if (item.IndexOf("加入本群。") != -1)//猜拳
             {
-                this.textBox3.Text = "欢迎 "+item.Replace("加入本群。","")+" 加入阴阳师辅助群，购买辅助请联系群主或管理员，辅助价格10元每月，百分百不会被封！\n本辅助完全模拟人工，当前版本支持桌面版、一切模拟器，具体参考群中使用文件。";
+                this.textBox3.Text = "欢迎 " + item.Replace("加入本群。", "") + " 加入阴阳师辅助群，购买辅助请联系群主或管理员，辅助价格10元每月，百分百不会被封！\n本辅助完全模拟人工，当前版本支持桌面版、一切模拟器，具体参考群中使用文件。";
                 send();
                 iscai = true;
             }
@@ -403,7 +407,7 @@ namespace QQRoboter
             }
             if (item.IndexOf("\\\\") != -1)
             {
-                this.textBox3.Text = Get("http://i.itpk.cn/api.php?question="+item.Replace('\\',' ')).Replace("[name]",s).Replace("[cqname]","@木头羊@");
+                this.textBox3.Text = Get("http://i.itpk.cn/api.php?question=" + item.Replace('\\', ' ')).Replace("[name]", s).Replace("[cqname]", "@木头羊@");
                 send();
             }
             if (item.IndexOf("\\命令") != -1)
@@ -412,49 +416,49 @@ namespace QQRoboter
                 this.textBox3.Text = "\\\\关键字：表示聊天\n\\猜拳：表示进行猜拳游戏\n\\继续：表示继续进行猜拳游戏，只需发送你要出的即可\n\\一言：表示获得一句鸡汤\n\\开启：表示开启打卡通知，仅支持管理员\n\\关闭：表示关闭打卡通知，仅支持管理员\n\\定时\\整数：表示每个整数分钟通知打卡，仅支持管理员，默认为60分钟\\n\\查询：表示查询金币余额";
                 sends();
             }
-            
+
             if (item.IndexOf("\\签到") != -1 && s != "")
             {
-                
-                    Random a1 = new Random();
-                    int c=a1.Next(1000)+1;
-                    if ((InIHelper.ReadConfig<string>("user", s + DateTime.Now.ToString("YYYY-MM-dd"))) != "1")//没有签到
-                    {
-                        InIHelper.WriteConfig("user", s, "true");
-                        InIHelper.WriteConfig("user", s + DateTime.Now.ToString("YYYY-MM-dd"),"1");
-                        // OperateIniFile.WriteIniData("user",s,"true","config//user.ini");
-                        this.textBox3.Text = s+"签到成功，赠送" + c + "/cp"+",持有"+(InIHelper.ReadConfig<int>("user", s +"jb")+ c)+"/cp";
-                        InIHelper.WriteConfig("user", s + "jb", (InIHelper.ReadConfig<int>("user", s +"jb")+ c).ToString());
-                        send();
-                    }
-                    else
-                    {
-                        this.textBox3.Text = s+"：今天已经签到了，请明天再来";
-                        send();
-                    }
-               
+
+                Random a1 = new Random();
+                int c = a1.Next(1000) + 1;
+                if ((InIHelper.ReadConfig<string>("user", s + DateTime.Now.ToString("YYYY-MM-dd"))) != "1")//没有签到
+                {
+                    InIHelper.WriteConfig("user", s, "true");
+                    InIHelper.WriteConfig("user", s + DateTime.Now.ToString("YYYY-MM-dd"), "1");
+                    // OperateIniFile.WriteIniData("user",s,"true","config//user.ini");
+                    this.textBox3.Text = s + "签到成功，赠送" + c + "/cp" + ",持有" + (InIHelper.ReadConfig<int>("user", s + "jb") + c) + "/cp";
+                    InIHelper.WriteConfig("user", s + "jb", (InIHelper.ReadConfig<int>("user", s + "jb") + c).ToString());
+                    send();
+                }
+                else
+                {
+                    this.textBox3.Text = s + "：今天已经签到了，请明天再来";
+                    send();
+                }
+
             }
             if (item.IndexOf("\\继续") != -1)
             {
                 iscai = true;
-                
+
                 this.textBox3.Text = "/ts请出！";
                 send();
             }
-            if (item.IndexOf("\\猜谜") != -1 )
+            if (item.IndexOf("\\猜谜") != -1)
             {
                 iscaimi = true;
-                
-              string[]  mi = miyu();
-             
-              Md = mi[1];
+
+                string[] mi = miyu();
+
+                Md = mi[1];
                 this.textBox3.Text = mi[0];
                 send();
                 p = 0;
             }
             if (iscaimi == true)
             {
-                if (item.IndexOf("="+Md) != -1)
+                if (item.IndexOf("=" + Md) != -1)
                 {
                     this.textBox3.Text = "恭喜，" + s + "猜对了，奖励1000/cp！";
                     InIHelper.WriteConfig("user", s + "jb", (InIHelper.ReadConfig<int>("user", s + "jb") + 1000).ToString());
@@ -464,10 +468,10 @@ namespace QQRoboter
                 }
                 else
                 {
-                    if (item.IndexOf("=") != -1 && item.IndexOf("=" +Md) == -1)
+                    if (item.IndexOf("=") != -1 && item.IndexOf("=" + Md) == -1)
                     {
-                       
-                       
+
+
                         if (p == 3)
                         {
                             this.textBox3.Text = "很遗憾，" + s + "猜错了,答案是：" + Md;
@@ -476,41 +480,41 @@ namespace QQRoboter
                         }
                         else
                         {
-                           
-                            this.textBox3.Text = "很遗憾，" + s + "猜错了,还剩余"+(3-p)+"次机会，扣除2/cp";
+
+                            this.textBox3.Text = "很遗憾，" + s + "猜错了,还剩余" + (3 - p) + "次机会，扣除2/cp";
                             InIHelper.WriteConfig("user", s + "jb", (InIHelper.ReadConfig<int>("user", s + "jb") - 2).ToString());
                             send();
                             p++;
                         }
                     }
                 }
-            
+
             }
             if (item.IndexOf("\\查询") != -1)
             {
-                if ((InIHelper.ReadConfig<string>("user", s )) != "true")//没有签到
+                if ((InIHelper.ReadConfig<string>("user", s)) != "true")//没有签到
                 {
-                    this.textBox3.Text = s+"，持有:0/cp";
+                    this.textBox3.Text = s + "，持有:0/cp";
                     send();
                 }
                 else
                 {
-                    this.textBox3.Text = s+"持有:" + InIHelper.ReadConfig<string>("user", s + "jb") + "/cp";
+                    this.textBox3.Text = s + "持有:" + InIHelper.ReadConfig<string>("user", s + "jb") + "/cp";
                     send();
                 }
             }
-            if (iscai == true  )
+            if (iscai == true)
             {
                 Random a = new Random();
-               int b= a.Next(1,4);
-              
+                int b = a.Next(1, 4);
+
                 if (item.IndexOf("\\石头") != -1)
                 {
                     if (b % 3 == 0)
                     {
                         sendwt("机器人出布，你出的石头，你输了，扣除10/cp。/cy", imageList1.Images[2], imageList1.Images[1]);
                         InIHelper.WriteConfig("user", s + "jb", (InIHelper.ReadConfig<int>("user", s + "jb") - 10).ToString());
-                     
+
                     }
                     if (b % 3 == 1)
                     {
@@ -519,7 +523,7 @@ namespace QQRoboter
                     if (b % 3 == 2)
                     {
                         sendwt("机器人出剪刀，你出的石头，你赢了，奖励20/cp。/gz", imageList1.Images[0], imageList1.Images[1]);
-                        InIHelper.WriteConfig("user", s + "jb", (InIHelper.ReadConfig<int>("user", s + "jb") +20).ToString());
+                        InIHelper.WriteConfig("user", s + "jb", (InIHelper.ReadConfig<int>("user", s + "jb") + 20).ToString());
                     }
                     iscai = false;
                 }
@@ -559,10 +563,10 @@ namespace QQRoboter
                     }
                     iscai = false;
                 }
-            
+
             }
-           
-            if (isin(s)==true  && item.IndexOf("\\开启") != -1)
+
+            if (isin(s) == true && item.IndexOf("\\开启") != -1)
             {
                 this.textBox3.Text = "通知开启成功！";
                 send();
@@ -572,7 +576,7 @@ namespace QQRoboter
             {
                 this.textBox3.Text = "通知关闭成功！";
                 send();
-                checkBox2.Checked=false  ;
+                checkBox2.Checked = false;
             }
             if (isin(s) == true && item.IndexOf("\\定时") != -1)
             {
@@ -589,27 +593,27 @@ namespace QQRoboter
                     this.textBox3.Text = "[消息]：定时设置格式错误，请以#定时数字格式输入！";
                 }
                 send();
-                
+
             }
-            if ( item.IndexOf("\\一言") != -1)
+            if (item.IndexOf("\\一言") != -1)
             {
                 this.textBox3.Text = Get("https://api.lwl12.com/hitokoto/main/get");
                 send();
-               
+
             }
-           
+
         }
-        public  bool isin(string s)
+        public bool isin(string s)
         {
             int k = 0;
-            for(int i = 0; i <= listBox2.Items.Count - 1; i++)
+            for (int i = 0; i <= listBox2.Items.Count - 1; i++)
             {
-               // MessageBox.Show(listBox2.Items[i].ToString ());
+                // MessageBox.Show(listBox2.Items[i].ToString ());
                 if (s.Trim().IndexOf(listBox2.Items[i].ToString()) != -1)
                 {
 
                     k = 1;
-                 
+
                 }
             }
             if (k == 0)
@@ -620,7 +624,7 @@ namespace QQRoboter
             {
                 return true;
             }
-        
+
         }
         private void button2_Click(object sender, EventArgs e)
         {
@@ -636,19 +640,20 @@ namespace QQRoboter
                         FindUserMessage((IntPtr)hWnd);
                     string[] content = value.Split(' ');
 
-                    ADD( content[content.Count() - 5]+":"+content[content.Count() - 2], content[content.Count() - 3]);
+                    ADD(content[content.Count() - 5] + ":" + content[content.Count() - 2], content[content.Count() - 3]);
 
                 }
             }
-            catch {
+            catch
+            {
 
-                
+
             }
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            listBox2.Items.Add(textBox4.Text );
+            listBox2.Items.Add(textBox4.Text);
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -673,11 +678,11 @@ namespace QQRoboter
 
             ShowWindow(k, 1);
             SendMessage(k, WM_PASTE, 0, 0);
-      
-         
+
+
             ShowWindow(k, 1);
             Clipboard.Clear();
-            Clipboard.SetText( text);
+            Clipboard.SetText(text);
             SendMessage(k, WM_PASTE, 0, 0);
             SendMessage(k, WM_KEYDOWN, 0X0D, 0);//发
 
@@ -685,27 +690,27 @@ namespace QQRoboter
 
             SendMessage(k, WM_CHAR, 0X0D, 0); //回车
         }
-        public void sendwt(string text, Image img,Image img2)
+        public void sendwt(string text, Image img, Image img2)
         {
 
             IntPtr k = FindWindow(null, comboBox1.Text);
             // SetForegroundWindow(k);//把找到的的对话框在最前面显示如果使用了这个方法
             Clipboard.Clear();
 
-          
-           // Clipboard.SetImage(img);
+
+            // Clipboard.SetImage(img);
             //Clipboard.SetText(text);
 
-           // ShowWindow(k, 1);
-           // SendMessage(k, WM_PASTE, 0, 0);
+            // ShowWindow(k, 1);
+            // SendMessage(k, WM_PASTE, 0, 0);
             //ShowWindow(k, 1);
-           // Clipboard.Clear();
-           // Clipboard.SetText("  VS  ");
-          //  SendMessage(k, WM_PASTE, 0, 0);
-           // ShowWindow(k, 1);
-           // Clipboard.Clear();
-           // Clipboard.SetImage(img2);
-           // SendMessage(k, WM_PASTE, 0, 0);
+            // Clipboard.Clear();
+            // Clipboard.SetText("  VS  ");
+            //  SendMessage(k, WM_PASTE, 0, 0);
+            // ShowWindow(k, 1);
+            // Clipboard.Clear();
+            // Clipboard.SetImage(img2);
+            // SendMessage(k, WM_PASTE, 0, 0);
             ShowWindow(k, 1);
             Clipboard.Clear();
             Clipboard.SetText(text);
@@ -718,7 +723,7 @@ namespace QQRoboter
         }
         private void button5_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -726,8 +731,8 @@ namespace QQRoboter
             IntPtr k = FindWindow(null, comboBox1.Text);
             Clipboard.Clear();
             System.Collections.Specialized.StringCollection strcoll = new System.Collections.Specialized.StringCollection();
-           // strcoll.Add(@"C:\Users\admin\Documents\Visual Studio 2010\Projects\QQRoboter\QQRoboter\bin\Debug");
-            strcoll.Add(textBox2.Text );
+            // strcoll.Add(@"C:\Users\admin\Documents\Visual Studio 2010\Projects\QQRoboter\QQRoboter\bin\Debug");
+            strcoll.Add(textBox2.Text);
             Clipboard.SetFileDropList(strcoll);
             ShowWindow(k, 1);
             SendMessage(k, WM_PASTE, 0, 0);
@@ -741,17 +746,17 @@ namespace QQRoboter
         private void timer2_Tick(object sender, EventArgs e)
         {
             Process[] process = Process.GetProcesses();
-           
+
             foreach (Process p in process)
             {
-                if (p.MainWindowTitle.ToString() != "" && p.ProcessName.ToLower() == "qq" && comboBox1.Items.Contains(p.MainWindowTitle.ToString())==false )
-                    comboBox1.Items.Add (p.MainWindowTitle.ToString());
+                if (p.MainWindowTitle.ToString() != "" && p.ProcessName.ToLower() == "qq" && comboBox1.Items.Contains(p.MainWindowTitle.ToString()) == false)
+                    comboBox1.Items.Add(p.MainWindowTitle.ToString());
             }
         }
 
         private void button5_Click_1(object sender, EventArgs e)
         {
-            
+
             send();
 
         }
@@ -798,15 +803,15 @@ namespace QQRoboter
             int c = rowstring.IndexOf("答案是：");
             int d = rowstring.IndexOf("、");
             string midi = rowstring.Substring(c + 4, 1);
-            string mimian = rowstring.Substring(d+1, c-5);
+            string mimian = rowstring.Substring(d + 1, c - 5);
             sr.Close();
-            MessageBox.Show(mimian+"\n"+midi);
+            MessageBox.Show(mimian + "\n" + midi);
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
-            
-       
+
+
         }
     }
 }

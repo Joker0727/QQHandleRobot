@@ -13,3 +13,12 @@ C:\Users\16107\Desktop\QQRoboter\QQRoboter\obj\x86\Debug\QQRoboter.csproj.Genera
 C:\Users\16107\Desktop\QQRoboter\QQRoboter\obj\x86\Debug\QQRoboter.csproj.CoreCompileInputs.cache
 C:\Users\16107\Desktop\QQRoboter\QQRoboter\obj\x86\Debug\QQRoboter.exe
 C:\Users\16107\Desktop\QQRoboter\QQRoboter\obj\x86\Debug\QQRoboter.pdb
+E:\MyCollection\QQ句柄机器人\QQRoboter\QQRoboter\bin\Debug\QQRoboter.exe
+E:\MyCollection\QQ句柄机器人\QQRoboter\QQRoboter\bin\Debug\QQRoboter.pdb
+E:\MyCollection\QQ句柄机器人\QQRoboter\QQRoboter\obj\x86\Debug\QQRoboter.csprojAssemblyReference.cache
+E:\MyCollection\QQ句柄机器人\QQRoboter\QQRoboter\obj\x86\Debug\QQRoboter.Form1.resources
+E:\MyCollection\QQ句柄机器人\QQRoboter\QQRoboter\obj\x86\Debug\QQRoboter.Properties.Resources.resources
+E:\MyCollection\QQ句柄机器人\QQRoboter\QQRoboter\obj\x86\Debug\QQRoboter.csproj.GenerateResource.cache
+E:\MyCollection\QQ句柄机器人\QQRoboter\QQRoboter\obj\x86\Debug\QQRoboter.csproj.CoreCompileInputs.cache
+E:\MyCollection\QQ句柄机器人\QQRoboter\QQRoboter\obj\x86\Debug\QQRoboter.exe
+E:\MyCollection\QQ句柄机器人\QQRoboter\QQRoboter\obj\x86\Debug\QQRoboter.pdb
