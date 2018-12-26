@@ -1,0 +1,15 @@
+c:\users\王磊\documents\visual studio 2010\Projects\QQRoboter\QQRoboter\bin\Debug\QQRoboter.exe
+c:\users\王磊\documents\visual studio 2010\Projects\QQRoboter\QQRoboter\bin\Debug\QQRoboter.pdb
+c:\users\王磊\documents\visual studio 2010\Projects\QQRoboter\QQRoboter\obj\x86\Debug\QQRoboter.Form1.resources
+c:\users\王磊\documents\visual studio 2010\Projects\QQRoboter\QQRoboter\obj\x86\Debug\QQRoboter.Properties.Resources.resources
+c:\users\王磊\documents\visual studio 2010\Projects\QQRoboter\QQRoboter\obj\x86\Debug\QQRoboter.csproj.GenerateResource.Cache
+c:\users\王磊\documents\visual studio 2010\Projects\QQRoboter\QQRoboter\obj\x86\Debug\QQRoboter.exe
+c:\users\王磊\documents\visual studio 2010\Projects\QQRoboter\QQRoboter\obj\x86\Debug\QQRoboter.pdb
+C:\Users\16107\Desktop\QQRoboter\QQRoboter\bin\Debug\QQRoboter.exe
+C:\Users\16107\Desktop\QQRoboter\QQRoboter\bin\Debug\QQRoboter.pdb
+C:\Users\16107\Desktop\QQRoboter\QQRoboter\obj\x86\Debug\QQRoboter.Form1.resources
+C:\Users\16107\Desktop\QQRoboter\QQRoboter\obj\x86\Debug\QQRoboter.Properties.Resources.resources
+C:\Users\16107\Desktop\QQRoboter\QQRoboter\obj\x86\Debug\QQRoboter.csproj.GenerateResource.cache
+C:\Users\16107\Desktop\QQRoboter\QQRoboter\obj\x86\Debug\QQRoboter.csproj.CoreCompileInputs.cache
+C:\Users\16107\Desktop\QQRoboter\QQRoboter\obj\x86\Debug\QQRoboter.exe
+C:\Users\16107\Desktop\QQRoboter\QQRoboter\obj\x86\Debug\QQRoboter.pdb
